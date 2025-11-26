@@ -594,7 +594,7 @@ function ExpenseTrackerContent() {
                 </div>
                 <div className="bg-gray-900/50 border border-gray-800 p-6 rounded-2xl backdrop-blur-sm">
                   <h3 className="text-gray-400 text-sm font-medium mb-2">Expense Count</h3>
-                  <p className="text-4xl font-bold text-white">{group.expenseCount.toString()}</p>
+                  <p className="text-4xl font-bold text-white">{expenses.length}</p>
                 </div>
               </div>
 
