@@ -1,0 +1,433 @@
+{
+  "address": "Bh5S4aNWemiwNhSCojw59A2gyhTDehqScB9eUm3aSun1",
+  "metadata": {
+    "name": "expense_tracker",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "add_expense",
+      "discriminator": [
+        171,
+        23,
+        8,
+        240,
+        62,
+        31,
+        254,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "group",
+          "writable": true
+        },
+        {
+          "name": "expense",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  101,
+                  120,
+                  112,
+                  101,
+                  110,
+                  115,
+                  101
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "group"
+              },
+              {
+                "kind": "account",
+                "path": "group.expense_count",
+                "account": "ExpenseGroup"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "name": "category",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "delete_expense",
+      "discriminator": [
+        117,
+        203,
+        143,
+        99,
+        175,
+        155,
+        125,
+        144
+      ],
+      "accounts": [
+        {
+          "name": "group",
+          "writable": true,
+          "relations": [
+            "expense"
+          ]
+        },
+        {
+          "name": "expense",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true,
+          "relations": [
+            "expense"
+          ]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initialize_group",
+      "discriminator": [
+        191,
+        73,
+        34,
+        229,
+        233,
+        213,
+        189,
+        173
+      ],
+      "accounts": [
+        {
+          "name": "group",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  103,
+                  114,
+                  111,
+                  117,
+                  112
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              },
+              {
+                "kind": "arg",
+                "path": "group_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "group_id",
+          "type": "u64"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "join_group",
+      "discriminator": [
+        121,
+        56,
+        199,
+        19,
+        250,
+        70,
+        44,
+        184
+      ],
+      "accounts": [
+        {
+          "name": "group",
+          "writable": true
+        },
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "modify_expense",
+      "discriminator": [
+        223,
+        50,
+        96,
+        159,
+        197,
+        208,
+        147,
+        249
+      ],
+      "accounts": [
+        {
+          "name": "group",
+          "writable": true,
+          "relations": [
+            "expense"
+          ]
+        },
+        {
+          "name": "expense",
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "signer": true,
+          "relations": [
+            "expense"
+          ]
+        }
+      ],
+      "args": [
+        {
+          "name": "new_amount",
+          "type": "u64"
+        },
+        {
+          "name": "new_description",
+          "type": "string"
+        },
+        {
+          "name": "new_category",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "register_user",
+      "discriminator": [
+        2,
+        241,
+        150,
+        223,
+        99,
+        214,
+        116,
+        97
+      ],
+      "accounts": [
+        {
+          "name": "user_profile",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  117,
+                  115,
+                  101,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Expense",
+      "discriminator": [
+        49,
+        167,
+        206,
+        160,
+        209,
+        254,
+        24,
+        100
+      ]
+    },
+    {
+      "name": "ExpenseGroup",
+      "discriminator": [
+        126,
+        142,
+        10,
+        132,
+        157,
+        84,
+        19,
+        217
+      ]
+    },
+    {
+      "name": "UserProfile",
+      "discriminator": [
+        32,
+        37,
+        119,
+        205,
+        179,
+        180,
+        13,
+        194
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "Expense",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "group",
+            "type": "pubkey"
+          },
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "category",
+            "type": "string"
+          },
+          {
+            "name": "payer",
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ExpenseGroup",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "expense_count",
+            "type": "u64"
+          },
+          {
+            "name": "total_amount",
+            "type": "u64"
+          },
+          {
+            "name": "members",
+            "type": {
+              "vec": "pubkey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "UserProfile",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          }
+        ]
+      }
+    }
+  ]
+}
